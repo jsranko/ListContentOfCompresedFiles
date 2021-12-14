@@ -7,7 +7,7 @@ import java.util.jar.*;
 public class JarDir {
 
     public static void processEntry(JarEntry je, fruehlingDatei fdDatei, String className) {
-        if (className != null & !je.getName().contains(className)){
+        if (className != null & !je.getName().toUpperCase().contains(className.toUpperCase())){
             return;
         }
         fdDatei.addInhaltEntry(je.getName());
