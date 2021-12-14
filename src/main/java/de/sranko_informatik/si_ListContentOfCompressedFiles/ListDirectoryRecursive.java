@@ -43,23 +43,21 @@ public class ListDirectoryRecursive {
                     System.out.print("\t");
                 }
                 if (aFile.isDirectory()) {
-                    System.out.println("[" + aFile.getName() + "]");
+                    //System.out.println("[" + aFile.getName() + "]");
                     listDirectory(aFile.getAbsolutePath(), level + 1);
                 } else {
                     try {
-                        System.out.print("> ".concat(aFile.getAbsolutePath()));
+
                         if (isJarFile(aFile)) {
-                            System.out.println(" ist JAR!");
+                            //System.out.println("> ".concat(aFile.getAbsolutePath()));
                             jarFiles.add(aFile);
-                        } else {
-                            System.out.println(" ist nicht JAR!");
                         }
                     } catch (IOException e) {
-                        System.out.println("!!!! ".concat(aFile.getAbsolutePath()));
+                        //System.out.println("!!!! ".concat(aFile.getAbsolutePath()));
                         //e.printStackTrace();
                     }
 
-                    System.out.println(aFile.getName());
+                    //System.out.println(aFile.getName());
                 }
             }
         }

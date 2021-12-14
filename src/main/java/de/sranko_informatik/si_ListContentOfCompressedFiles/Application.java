@@ -37,8 +37,9 @@ public class Application {
         List<fruehlingDatei> fdFiles = new ArrayList<fruehlingDatei>();
 
         for (File jarFile : jarFiles) {
+            System.out.println(jarFile.getName());
             fdFiles.add(JarDir.processJarFile(jarFile, className));
-        }        //while (fdFiles.remove(null));
+        }
         fdFiles.removeIf(Objects::isNull);
         System.out.println("Es  sind ".concat(Integer.toString(fdFiles.size())).concat(" jar Dateien mit ").concat(className).concat(" gefunden worden."));
 
