@@ -40,7 +40,7 @@ public class ListDirectoryRecursive {
         if (firstLevelFiles != null && firstLevelFiles.length > 0) {
             for (File aFile : firstLevelFiles) {
                 for (int i = 0; i < level; i++) {
-                    System.out.print("\t");
+                    //System.out.print("\t");
                 }
                 if (aFile.isDirectory()) {
                     //System.out.println("[" + aFile.getName() + "]");
