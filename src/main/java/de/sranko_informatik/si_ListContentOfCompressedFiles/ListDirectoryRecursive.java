@@ -34,7 +34,7 @@ public class ListDirectoryRecursive {
     }
 
     public List<File> listDirectory(String dirPath, int level) {
-        List<File> jarFiles = new ArrayList<File>();
+        List<File> jarFiles = new ArrayList<>();
         File dir = new File(dirPath);
         File[] firstLevelFiles = dir.listFiles();
         if (firstLevelFiles != null && firstLevelFiles.length > 0) {
