@@ -33,7 +33,7 @@ public class ListDirectoryRecursive {
         return test == 0x504b0304;
     }
 
-    public void listDirectory(String dirPath, int level, List<File> jarFiles) throws IOException {
+    public void listDirectory(String dirPath, int level, List<File> jarFiles)  {
         File dir = new File(dirPath);
         File[] firstLevelFiles = dir.listFiles();
         if (firstLevelFiles != null && firstLevelFiles.length > 0) {
@@ -45,11 +45,15 @@ public class ListDirectoryRecursive {
                     //System.out.println("[" + aFile.getName() + "]");
                     listDirectory(aFile.getAbsolutePath(), level + 1, jarFiles);
                 } else {
-                      if (isJarFile(aFile)) {
-                            //System.out.println("> ".concat(aFile.getAbsolutePath()));
-                            jarFiles.add(aFile);
-                            //System.out.println(Integer.toString(jarFiles.size()));
-                      }
+                    try {
+                        if (isJarFile(aFile)) {
+                              //System.out.println("> ".concat(aFile.getAbsolutePath()));
+                              jarFiles.add(aFile);
+                              //System.out.println(Integer.toString(jarFiles.size()));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     //System.out.println(aFile.getName());
                 }
