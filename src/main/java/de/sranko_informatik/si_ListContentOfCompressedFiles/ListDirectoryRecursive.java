@@ -51,6 +51,7 @@ public class ListDirectoryRecursive {
                         if (isJarFile(aFile)) {
                             //System.out.println("> ".concat(aFile.getAbsolutePath()));
                             jarFiles.add(aFile);
+                            System.out.println(Integer.toString(jarFiles.size()));
                         }
                     } catch (IOException e) {
                         //System.out.println("!!!! ".concat(aFile.getAbsolutePath()));
@@ -61,6 +62,7 @@ public class ListDirectoryRecursive {
                 }
             }
         }
+        System.out.println(Integer.toString(jarFiles.size()));
         return jarFiles;
     }
 }
