@@ -52,7 +52,7 @@ public class ListDirectoryRecursive {
                               //System.out.println(Integer.toString(jarFiles.size()));
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
 
                     //System.out.println(aFile.getName());
