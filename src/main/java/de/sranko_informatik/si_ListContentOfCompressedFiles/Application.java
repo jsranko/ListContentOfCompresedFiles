@@ -30,14 +30,15 @@ public class Application {
         //String dirToList = System.getProperty("user.home") + File.separator + "Documents";
 
         System.out.println("Jar Dateien werden gesucht ...");
-        List<File> jarFiles = test.listDirectory(dirToList, 0);
+        List<File> jarFiles = new ArrayList<>();;
+        test.listDirectory(dirToList, 0, jarFiles);
         System.out.println("Es sind ".concat(Integer.toString(jarFiles.size())).concat(" jar Dateien gefunden worden."));
 
         System.out.println("Jar Dateien werden analysiert ...");
         List<fruehlingDatei> fdFiles = new ArrayList<fruehlingDatei>();
 
         for (File jarFile : jarFiles) {
-            System.out.println(jarFile.getName());
+            //System.out.println(jarFile.getName());
             fdFiles.add(JarDir.processJarFile(jarFile, className));
         }
         fdFiles.removeIf(Objects::isNull);
