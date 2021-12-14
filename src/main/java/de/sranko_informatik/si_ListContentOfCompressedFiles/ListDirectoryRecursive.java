@@ -54,7 +54,7 @@ public class ListDirectoryRecursive {
                         }
                     } catch (IOException e) {
                         //System.out.println("!!!! ".concat(aFile.getAbsolutePath()));
-                        //e.printStackTrace();
+                        e.printStackTrace();
                     }
 
                     //System.out.println(aFile.getName());
