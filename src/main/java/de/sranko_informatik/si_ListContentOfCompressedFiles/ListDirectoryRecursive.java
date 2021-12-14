@@ -47,8 +47,12 @@ public class ListDirectoryRecursive {
                     listDirectory(aFile.getAbsolutePath(), level + 1);
                 } else {
                     try {
+                        System.out.print("> ".concat(aFile.getAbsolutePath()));
                         if (isJarFile(aFile)) {
+                            System.out.println(" ist JAR!");
                             jarFiles.add(aFile);
+                        } else {
+                            System.out.println(" ist nicht JAR!");
                         }
                     } catch (IOException e) {
                         System.out.println("!!!! ".concat(aFile.getAbsolutePath()));
