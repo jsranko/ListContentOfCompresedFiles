@@ -25,23 +25,41 @@ public class Application {
         String dirToList = cmd.getOptionValue("scann");
         String outputFilePath = cmd.getOptionValue("output");
         String className = cmd.getOptionValue("class");
+        String workDir = cmd.getOptionValue("workDir");
 
         ListDirectoryRecursive test = new ListDirectoryRecursive();
         //String dirToList = System.getProperty("user.home") + File.separator + "Documents";
 
         System.out.println("Jar Dateien werden gesucht ...");
         List<File> jarFiles = new ArrayList<>();;
+
         test.listDirectory(dirToList, 0, jarFiles);
         System.out.println("Es sind ".concat(Integer.toString(jarFiles.size())).concat(" jar Dateien gefunden worden."));
 
         System.out.println("Jar Dateien werden analysiert ...");
         List<fruehlingDatei> fdFiles = new ArrayList<fruehlingDatei>();
 
+        List<File> jarFilesLvl2 = new ArrayList<>();
         for (File jarFile : jarFiles) {
             //System.out.println(jarFile.getName());
-            fdFiles.add(JarDir.processJarFile(jarFile, className));
+            fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl2, jarFile, className));
         }
         fdFiles.removeIf(Objects::isNull);
+
+        List<File> jarFilesLvl3 = new ArrayList<>();
+        for (File jarFile : jarFilesLvl2) {
+            //System.out.println(jarFile.getName());
+            fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl3, jarFile, className));
+        }
+        fdFiles.removeIf(Objects::isNull);
+
+        List<File> jarFilesLvl4 = new ArrayList<>();
+        for (File jarFile : jarFilesLvl3) {
+            //System.out.println(jarFile.getName());
+            fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl4, jarFile, className));
+        }
+        fdFiles.removeIf(Objects::isNull);
+
         System.out.println("Es  sind ".concat(Integer.toString(fdFiles.size())).concat(" jar Dateien mit ").concat(className).concat(" gefunden worden."));
 
         if (outputFilePath != null) {
@@ -63,6 +81,10 @@ public class Application {
         Option input = new Option("s", "scann", true, "Path to scann");
         input.setRequired(true);
         options.addOption(input);
+
+        Option workDir = new Option("d", "workDir", true, "Working directory");
+        workDir.setRequired(true);
+        options.addOption(workDir);
 
         Option output = new Option("o", "output", true, "output file");
         options.addOption(output);

@@ -60,7 +60,7 @@ public class ListDirectoryRecursive {
             }
         }
         if (level == 0) {
-            System.out.println(Integer.toString(jarFiles.size()).concat(" am Ende"));
+            //System.out.println(Integer.toString(jarFiles.size()).concat(" am Ende"));
         }
         return;
     }
