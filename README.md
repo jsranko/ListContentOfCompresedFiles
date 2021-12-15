@@ -32,14 +32,14 @@ mvn clean package assembly:single
 ```
 
 ## Example 
-### Usecase 1
+### Use case 1
 Es sollten ausgewählte Verzeichnisse in root analysiert werden.
 
 root als aktuelles Verzeichnis setzen:
 ```
 cd /
 ```
-Nur für Verzeihnisse ein Analyse-Script generieren:
+Nur für Verzeichnisse ein Analyse-Script generieren:
 ```
 ls -ld */ | awk '{print substr($9, 1, length($9)-1)}' | awk '{str = sprintf("%s -> java -cp /OpenSource/listcontentofcompresedfiles/target/ListContentOfCompresedFiles-jar-with-dependencies.jar de/sranko_informatik/si_ListContentOfCompressedFiles/Application --scann /%s --class JndiLookup.class --output ~/DependencyTree_%s.json", $1, $1, $1); print str}'
 ```
@@ -51,7 +51,12 @@ QIBM -> java -cp /OpenSource/listcontentofcompresedfiles/target/ListContentOfCom
 ```
 Wenn die Aufgabenstellung ist, home-Verzeichnis zu analysieren, dann muss der Java-Befehl ausgeführt werden:
 ```
-java -cp /OpenSource/listcontentofcompresedfiles/target/ListContentOfCompresedFiles-jar-with-dependencies.jar de/sranko_informatik/si_ListContentOfCompressedFiles/Application --scann /home --class log4j --workDir ~/LOG4J_Analyse/wd/ --output ~/LOG4J_Analyse/dir_home.json
+java -cp /OpenSource/listcontentofcompresedfiles/target/ListContentOfCompresedFiles-jar-with-dependencies.jar \
+     de/sranko_informatik/si_ListContentOfCompressedFiles/Application \
+     --pfad /home \
+     --search JndiLookup.class \
+     --workDir ~/LOG4J_Analyse/wd/ \ 
+     --output ~/LOG4J_Analyse/dir_home.json
 ```
 Sollte ein Treffer gefunden werden, wird folgende Ausgabe generiert:
 ```
