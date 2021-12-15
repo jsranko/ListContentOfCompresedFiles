@@ -4,6 +4,7 @@ package de.sranko_informatik.si_ListContentOfCompressedFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.cli.*;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -39,36 +40,49 @@ public class Application {
         System.out.println("Jar Dateien werden analysiert ...");
         List<fruehlingDatei> fdFiles = new ArrayList<fruehlingDatei>();
 
+        System.out.println("Level 1 ...");
         List<File> jarFilesLvl2 = new ArrayList<>();
         for (File jarFile : jarFiles) {
-            //System.out.println(jarFile.getName());
             fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl2, jarFile, className));
         }
         fdFiles.removeIf(Objects::isNull);
 
+        System.out.println("Level 2 ...");
         List<File> jarFilesLvl3 = new ArrayList<>();
         for (File jarFile : jarFilesLvl2) {
-            //System.out.println(jarFile.getName());
             fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl3, jarFile, className));
         }
         fdFiles.removeIf(Objects::isNull);
 
+        System.out.println("Level 3 ...");
         List<File> jarFilesLvl4 = new ArrayList<>();
         for (File jarFile : jarFilesLvl3) {
-            //System.out.println(jarFile.getName());
             fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl4, jarFile, className));
         }
         fdFiles.removeIf(Objects::isNull);
 
-        System.out.println("Es  sind ".concat(Integer.toString(fdFiles.size())).concat(" jar Dateien mit ").concat(className).concat(" gefunden worden."));
+        System.out.println("Level 4 ...");
+        for (File jarFile : jarFilesLvl4) {
+            fdFiles.add(JarDir.processJarFile(workDir, null, jarFile, className));
+        }
+        fdFiles.removeIf(Objects::isNull);
+
+        System.out.println("Es sind ".concat(Integer.toString(fdFiles.size())).concat(" jar Dateien mit:").concat(className).concat(" gefunden worden."));
 
         if (outputFilePath != null) {
-            System.out.println("Output Datei wird erstellt ...");
+            System.out.println("Output Datei ".concat(outputFilePath).concat(" wird erstellt ..."));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             Writer writer = new FileWriter(outputFilePath);
             gson.toJson(fdFiles, writer);
             writer.close();
             //gson.toJson(fdFiles, new FileWriter(outputFilePath));
+        }
+
+        File wDir = null;
+        if (workDir != null) {
+            System.out.println("Workdirectory wird gelöscht ...");
+            wDir = new File(workDir);
+            FileUtils.deleteDirectory(wDir);
         }
 
         System.out.println("Fertig!");
