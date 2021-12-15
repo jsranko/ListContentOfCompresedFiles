@@ -23,9 +23,9 @@ public class Application {
 
         CommandLine cmd = init(args);
 
-        String dirToList = cmd.getOptionValue("scann");
+        String dirToList = cmd.getOptionValue("pfad");
         String outputFilePath = cmd.getOptionValue("output");
-        String className = cmd.getOptionValue("class");
+        String className = cmd.getOptionValue("search");
         String workDir = cmd.getOptionValue("workDir");
 
         ListDirectoryRecursive test = new ListDirectoryRecursive();
@@ -101,7 +101,7 @@ public class Application {
 
         Options options = new Options();
 
-        Option input = new Option("s", "scann", true, "Path to scann");
+        Option input = new Option("p", "pfad", true, "Path to scann");
         input.setRequired(true);
         options.addOption(input);
 
@@ -112,7 +112,7 @@ public class Application {
         Option output = new Option("o", "output", true, "output file");
         options.addOption(output);
 
-        Option className = new Option("c", "class", true, "search class name");
+        Option className = new Option("s", "search", true, "search class name");
         options.addOption(className);
 
         CommandLineParser parser = new DefaultParser();
