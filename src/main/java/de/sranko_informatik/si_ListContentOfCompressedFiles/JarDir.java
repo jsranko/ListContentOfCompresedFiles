@@ -39,6 +39,7 @@ public class JarDir {
             jf = new JarFile(file.getAbsoluteFile());
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
         fruehlingDatei fdDatei = new fruehlingDatei(file.getName(), file.getAbsolutePath());

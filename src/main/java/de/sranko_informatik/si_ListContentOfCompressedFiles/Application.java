@@ -35,37 +35,46 @@ public class Application {
         List<File> jarFiles = new ArrayList<>();;
 
         test.listDirectory(dirToList, 0, jarFiles);
-        System.out.println("Es sind ".concat(Integer.toString(jarFiles.size())).concat(" jar Dateien gefunden worden."));
 
         System.out.println("Jar Dateien werden analysiert ...");
         List<fruehlingDatei> fdFiles = new ArrayList<fruehlingDatei>();
 
-        System.out.println("Level 1 ...");
         List<File> jarFilesLvl2 = new ArrayList<>();
-        for (File jarFile : jarFiles) {
-            fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl2, jarFile, className));
+        if (jarFiles.size() != 0){
+            System.out.println("Level 1 -> ".concat(Integer.toString(jarFiles.size())).concat(" files ..."));
+            for (File jarFile : jarFiles) {
+                fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl2, jarFile, className));
+            }
+            fdFiles.removeIf(Objects::isNull);
         }
-        fdFiles.removeIf(Objects::isNull);
 
-        System.out.println("Level 2 ...");
         List<File> jarFilesLvl3 = new ArrayList<>();
-        for (File jarFile : jarFilesLvl2) {
-            fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl3, jarFile, className));
+        if (jarFilesLvl2.size() != 0){
+            System.out.println("Level 2 -> ".concat(Integer.toString(jarFilesLvl2.size())).concat(" files ..."));
+            for (File jarFile : jarFilesLvl2) {
+                fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl3, jarFile, className));
+            }
+            fdFiles.removeIf(Objects::isNull);
         }
-        fdFiles.removeIf(Objects::isNull);
 
-        System.out.println("Level 3 ...");
         List<File> jarFilesLvl4 = new ArrayList<>();
-        for (File jarFile : jarFilesLvl3) {
-            fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl4, jarFile, className));
+        if (jarFilesLvl3.size() != 0){
+            System.out.println("Level 3 -> ".concat(Integer.toString(jarFilesLvl3.size())).concat(" files ..."));
+            for (File jarFile : jarFilesLvl3) {
+                fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl4, jarFile, className));
+            }
+            fdFiles.removeIf(Objects::isNull);
         }
-        fdFiles.removeIf(Objects::isNull);
 
-        System.out.println("Level 4 ...");
-        for (File jarFile : jarFilesLvl4) {
-            fdFiles.add(JarDir.processJarFile(workDir, null, jarFile, className));
+        List<File> jarFilesLvl5 = new ArrayList<>();
+        if (jarFilesLvl4.size() != 0){
+            System.out.println("Level 4 -> ".concat(Integer.toString(jarFilesLvl4.size())).concat(" files ..."));
+            for (File jarFile : jarFilesLvl4) {
+                fdFiles.add(JarDir.processJarFile(workDir, jarFilesLvl5, jarFile, className));
+            }
+            fdFiles.removeIf(Objects::isNull);
+            System.out.println("Done. Level 5 -> ".concat(Integer.toString(jarFilesLvl4.size())).concat(" files ..."));
         }
-        fdFiles.removeIf(Objects::isNull);
 
         System.out.println("Es sind ".concat(Integer.toString(fdFiles.size())).concat(" jar Dateien mit:").concat(className).concat(" gefunden worden."));
 
