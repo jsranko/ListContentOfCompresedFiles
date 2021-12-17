@@ -41,7 +41,7 @@ cd /
 ```
 Nur für Verzeichnisse ein Analyse-Script generieren:
 ```
-ls -ld */ | awk '{print substr($9, 1, length($9)-1)}' | awk '{str = sprintf("%s -> java -cp /OpenSource/listcontentofcompresedfiles/target/ListContentOfCompresedFiles-jar-with-dependencies.jar de/sranko_informatik/si_ListContentOfCompressedFiles/Application --scann /%s --class JndiLookup.class --output ~/DependencyTree_%s.json", $1, $1, $1); print str}'
+ls -ld */ | awk '{print substr($9, 1, length($9)-1)}' | awk '{str = sprintf("%s -> java -cp /OpenSource/listcontentofcompresedfiles/target/ListContentOfCompresedFiles-jar-with-dependencies.jar de/sranko_informatik/si_ListContentOfCompressedFiles/Application --pfad /%s --search JndiLookup.class --workDir ~/wd.json --output ~/DependencyTree_%s.json", $1, $1, $1); print str}'
 ```
 Eine mögliche Ausgabe:
 ```
